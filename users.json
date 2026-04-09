@@ -1,0 +1,23 @@
+[
+  {
+    "username": "STU001",
+    "password": "student123",
+    "role": "student",
+    "name": "John Doe",
+    "regNo": "STU001"
+  },
+  {
+    "username": "LEC001",
+    "password": "lecturer123",
+    "role": "lecturer",
+    "name": "Dr. Jane Smith",
+    "regNo": "LEC001"
+  },
+  {
+    "username": "STF001",
+    "password": "staff123",
+    "role": "staff",
+    "name": "Mike Johnson",
+    "regNo": "STF001"
+  }
+]
