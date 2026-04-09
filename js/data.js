@@ -1,6 +1,6 @@
 /* =========================================
-   CampusAI — Data Layer
-   Campus knowledge base & role configurations
+  CampusAI — Data Layer
+  Campus knowledge base & role configurations
    ========================================= */
 
 const CAMPUS_DATA = {

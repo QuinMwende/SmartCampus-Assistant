@@ -1,6 +1,6 @@
 /* =========================================
-   CampusAI — App Controller
-   Main application logic, routing & interactions
+  CampusAI — App Controller
+  Main application logic, routing & interactions
    ========================================= */
 
 /* ---- Global helpers ---- */
@@ -33,25 +33,70 @@ class CampusApp {
   constructor() {
     this.ai = new AIEngine();
     this.currentRole = 'student';
+    this.activeUser = null;
     this.isTyping = false;
     this.speechRecognition = null;
-    this.init();
+    this._setupAuth();
   }
 
-  init() {
-    // Render initial state
+  _setupAuth() {
+    const loginForm = document.getElementById('loginForm');
+    const roleSelect = document.getElementById('loginRole');
+    if (loginForm) {
+      loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const username = document.getElementById('usernameInput').value.trim();
+        const password = document.getElementById('passwordInput').value;
+        const role = roleSelect ? roleSelect.value : 'student';
+        this.login(username, password, role);
+      });
+    }
+  }
+
+  login(username, password, role) {
+    const credentials = [
+      { username: 'student', password: 'campus123', role: 'student', name: 'Quinter' },
+      { username: 'lecturer', password: 'lecturer123', role: 'lecturer', name: 'Dr. Kamau' },
+      { username: 'staff', password: 'staff123', role: 'staff', name: 'Campus Staff' },
+      { username: 'guest', password: 'guest123', role: 'guest', name: 'Visitor' }
+    ];
+
+    const user = credentials.find(u => u.username === username && u.password === password && u.role === role);
+    if (!user) {
+      this.showLoginError('Invalid credentials or role. Please try again.');
+      return;
+    }
+
+    this.activeUser = user;
+    this.currentRole = role;
+    this.ai.setRole(role);
+
+    document.getElementById('loginError').textContent = '';
+    const authScreen = document.getElementById('authScreen');
+    const appRoot = document.getElementById('app');
+    if (authScreen) authScreen.classList.add('hidden');
+    if (appRoot) {
+      appRoot.classList.remove('hidden');
+      appRoot.hidden = false;
+    }
+    document.getElementById('userNameDisplay').textContent = user.name;
+    document.getElementById('roleSelect').value = role;
+    this._startApp();
+  }
+
+  showLoginError(message) {
+    const el = document.getElementById('loginError');
+    if (el) el.textContent = message;
+  }
+
+  _startApp() {
     UIRenderer.renderQuickActions(this.currentRole);
     this._showWelcome();
-
-    // Init speech recognition if available
     this._initSpeech();
-
-    // Focus input
     setTimeout(() => {
       const inp = document.getElementById('userInput');
       if (inp) inp.focus();
     }, 300);
-
     console.log('CampusAI initialized. Role:', this.currentRole);
   }
 
@@ -166,7 +211,9 @@ class CampusApp {
 }
 
 /* ---- Initialize app on DOM ready ---- */
-const app = new CampusApp();
+document.addEventListener('DOMContentLoaded', () => {
+  window.app = new CampusApp();
+});
 
 /* ---- Keyboard shortcuts ---- */
 document.addEventListener('keydown', (e) => {

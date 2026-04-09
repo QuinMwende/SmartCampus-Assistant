@@ -1,6 +1,6 @@
 /* =========================================
-   CampusAI — UI Renderer
-   Renders all dynamic sections of the app
+  CampusAI — UI Renderer
+  Renders all dynamic sections of the app
    ========================================= */
 
 class UIRenderer {

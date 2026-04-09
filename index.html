@@ -9,7 +9,39 @@
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <div class="app-layout" id="app">
+  <div class="auth-screen" id="authScreen">
+    <div class="auth-card">
+      <div class="auth-logo">🎓 <span>CampusAI</span></div>
+      <h2>Welcome back</h2>
+      <p>Sign in to access your smart campus dashboard and assistant.</p>
+      <form id="loginForm" class="auth-form">
+        <label>
+          Username
+          <input type="text" id="usernameInput" placeholder="student" value="student" required />
+        </label>
+        <label>
+          Password
+          <input type="password" id="passwordInput" placeholder="campus123" value="campus123" required />
+        </label>
+        <label>
+          Role
+          <select id="loginRole">
+            <option value="student">Student</option>
+            <option value="lecturer">Lecturer</option>
+            <option value="staff">Staff</option>
+            <option value="guest">Guest</option>
+          </select>
+        </label>
+        <div class="auth-actions">
+          <button type="submit" class="primary-btn">Sign in</button>
+        </div>
+        <div class="login-hint">Try <strong>student/campus123</strong>, <strong>lecturer/lecturer123</strong>, <strong>staff/staff123</strong>, or <strong>guest/guest123</strong>.</div>
+        <div class="auth-error" id="loginError"></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="app-layout hidden" id="app">
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
@@ -58,9 +90,12 @@
       <!-- Header -->
       <header class="top-header">
         <div class="header-left">
+        <div class="page-title-wrap">
           <h1 class="page-title" id="pageTitle">Chat Assistant</h1>
+          <div class="user-welcome">Hi, <span id="userNameDisplay">Student</span></div>
         </div>
-        <div class="header-right">
+      </div>
+      <div class="header-right">
           <div class="role-selector">
             <span class="role-label">Role:</span>
             <select id="roleSelect" onchange="app.setRole(this.value)">

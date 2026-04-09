@@ -1,7 +1,7 @@
 /* =========================================
-   CampusAI — AI Engine
-   Natural language processing, intent detection,
-   response generation & conversation management
+  CampusAI — AI Engine
+  Natural language processing, intent detection,
+  response generation & conversation management
    ========================================= */
 
 class AIEngine {
@@ -32,7 +32,7 @@ class AIEngine {
       'cafetaria': 'cafeteria',
       'admition':  'admission',
       'examns':    'exams',
-      'frees':     'fees',
+      'fees':     'fees',
     };
   }
 
